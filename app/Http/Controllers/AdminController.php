@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Book;
 use PDF;
+use App\Exports\BooksExport;
+use App\Exports\BooksImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
 {
@@ -104,4 +107,23 @@ public function update_book(Request $req)
         $pdf = PDF::loadview('print_books', ['books' => $books]);
         return $pdf->download('data_buku.pdf');
     }
+
+    public function export() 
+    {
+        return Excel::download(new BooksExport, 'book.xlsx');
+    }
+
+    public function import(Request $req) 
+    {
+      Excel::import(new BooksImport, $req->file('file'));
+
+        $notif = array(
+            'message' => 'Import data berhasil dilakukan',
+            'alert-type' => 'succes',
+        );
+
+        return redirect()->route('admin.books')->with($notif);
+    }
+
+
 }

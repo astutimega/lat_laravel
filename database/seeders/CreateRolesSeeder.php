@@ -18,7 +18,7 @@ class CreateRolesSeeder extends Seeder
             [
                 'name' => 'Admin',
             ],
-            [
+            [ 
                 'name' => 'User',
             ],
         ];

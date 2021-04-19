@@ -34,6 +34,7 @@ Route::get('admin/books', [BookController::class, 'index'])
 Route::post('admin/books', [BookController::class, 'store'])
     ->name('admin.book.submit')
     ->middleware('is_admin');
+    
 Route::patch('admin/books/update', [BookController::class, 'update'])
     ->name('admin.book.update')
     ->middleware('is_admin');
@@ -55,4 +56,12 @@ Route::patch('admin/books/update', [AdminController::class, 'update_book'])
 
 Route::get('admin/print_books', [AdminController::class, 'print_books'])
     ->name('admin.print.books')
+    ->middleware('is_admin');
+
+Route::get('admin/books/export', [AdminController::class, 'export'])
+    ->name('admin.book.export')
+    ->middleware('is_admin');
+
+Route::get('admin/books/import', [AdminController::class, 'import'])
+    ->name('admin.book.import')
     ->middleware('is_admin');
